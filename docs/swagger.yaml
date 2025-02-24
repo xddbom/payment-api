@@ -1,0 +1,28 @@
+info:
+  contact: {}
+paths:
+  /:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Home page
+      tags:
+      - common
+  /ping:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Server availability check
+      tags:
+      - common
+swagger: "2.0"
