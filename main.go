@@ -9,8 +9,9 @@ import (
 
 func main() {
 	r := gin.Default()
-
 	http.SetupRoutes(r)
+
+	
 
 	r.Run(":8080")
 }

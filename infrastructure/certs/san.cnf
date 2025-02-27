@@ -5,18 +5,18 @@ distinguished_name = req_distinguished_name
 x509_extensions    = v3_req  # <=== Важно!
 
 [req_distinguished_name]
-countryName            = Country Name (2 letter code)
+countryName            = UA
 countryName_default    = US
-stateOrProvinceName    = State or Province Name (full name)
+stateOrProvinceName    = Mykolaiv
 stateOrProvinceName_default = California
-localityName           = Locality Name (eg, city)
+localityName           = Pivdenoukrainsk
 localityName_default   = San Francisco
 organizationName       = Organization Name (eg, company)
 organizationName_default = My Company
 commonName             = Common Name (eg, your domain)
 commonName_default     = localhost
 
-[v3_req]  # <=== Эта секция обязательно должна быть!
+[v3_req]
 subjectAltName = @alt_names
 
 [alt_names]
