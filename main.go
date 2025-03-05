@@ -1,30 +1,27 @@
 package main
 
 import (
-	"crypto/tls"
 	"log"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"golang.org/x/net/http2"
 
 	delivery "payment-api/delivery/http"
 	_ "payment-api/docs"
+	"payment-api/infrastructure/server"
 )
 
 func main() {
 	r := gin.Default()
 	delivery.SetupRoutes(r)
 
-	server := &http.Server{
-		Addr:    ":8080",
-		Handler: r,
-		TLSConfig: &tls.Config{
-			MinVersion: tls.VersionTLS12,
-		},
+	cfg := server.Config{
+		Port:     ":8080",
+		CertFile: "./infrastructure/certs/cert.pem",
+		KeyFile:  "./infrastructure/certs/key.pem",
 	}
 
-	http2.ConfigureServer(server, &http2.Server{})
-	log.Println("HTTPS with HTTP/v2 started on port :8080")
-	log.Fatal(server.ListenAndServeTLS("./infrastructure/certs/cert.pem", "./infrastructure/certs/key.pem"))
+	srv := server.NewServer(cfg, r)
+
+	log.Println("HTTPS with HTTP/2 started on port", cfg.Port)
+	log.Fatal(srv.ListenAndServeTLS(cfg.CertFile, cfg.KeyFile))
 }
