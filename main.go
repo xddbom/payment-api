@@ -8,11 +8,22 @@ import (
 	delivery "payment-api/delivery/http"
 	_ "payment-api/docs"
 	"payment-api/infrastructure/server"
+	"payment-api/config"
+	"payment-api/infrastructure/database"
+	_ "github.com/lib/pq"
 )
 
 func main() {
 	r := gin.Default()
 	delivery.SetupRoutes(r)
+	dbConfig := config.NewDBConfig()
+
+	db, err := database.NewPostgresConnection(dbConfig)
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+	defer db.Close()
+	log.Println("Connected to database successfully")
 
 	cfg := server.Config{
 		Port:     ":8080",
