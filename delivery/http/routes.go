@@ -29,6 +29,6 @@ func SetupRoutes(r *gin.Engine) {
 	r.GET("/ping", PingHandler)
 
 	// Swagger
-	url := ginSwagger.URL("/swagger/doc.json") 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url)) 
-} 
+	url := ginSwagger.URL("/swagger/doc.json")
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
+}

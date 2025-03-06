@@ -5,17 +5,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	_ "github.com/lib/pq"
+	"payment-api/config"
 	delivery "payment-api/delivery/http"
 	_ "payment-api/docs"
-	"payment-api/infrastructure/server"
-	"payment-api/config"
 	"payment-api/infrastructure/database"
-	_ "github.com/lib/pq"
+	"payment-api/infrastructure/server"
 )
 
 func main() {
-	r := gin.Default()
-	delivery.SetupRoutes(r)
 	dbConfig := config.NewDBConfig()
 
 	db, err := database.NewPostgresConnection(dbConfig)
@@ -30,6 +28,9 @@ func main() {
 		CertFile: "./infrastructure/certs/cert.pem",
 		KeyFile:  "./infrastructure/certs/key.pem",
 	}
+
+	r := gin.Default()
+	delivery.SetupRoutes(r)
 
 	srv := server.NewServer(cfg, r)
 

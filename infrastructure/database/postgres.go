@@ -28,4 +28,3 @@ func NewPostgresConnection(config config.DBConfig) (*sql.DB, error) {
 
 	return db, nil
 }
-
