@@ -1,0 +1,32 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  title: Payment API
+  version: "1.0"
+paths:
+  /:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Home page
+      tags:
+      - common
+  /ping:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Server availability check
+      tags:
+      - common
+swagger: "2.0"
